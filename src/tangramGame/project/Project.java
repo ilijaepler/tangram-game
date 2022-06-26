@@ -2988,6 +2988,61 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
 
     }
 
+    // display text on the window
+    public void writeText(String text, int x, int y) {
+        // TODO implement
+    }
+
+    // display the matched shape once it's done
+    public void printMatch(GLAutoDrawable drawable) {
+
+        // check if the shape is matched while we traverse through the blueprint (full of different shapes)
+        if(traverse == 1) {
+
+            // check if the shape is valid or no
+            if(shape[1].equals(shape[triangle1_idn - 27])) {
+
+                boolean isLeftScaleValid = scaleCheck(scaleTriangle1).equals("appropriate");
+                boolean isLeftRotationValid = rotationCheck(1, rotateTriangle1).equals("correct");
+                if(isLeftScaleValid && isLeftRotationValid) {
+                    // TODO: Implement a function to write the above
+                    // -> Well done correct shape rotation and scale
+                }
+            }
+        }
+
+    }
+
+    // checks the rotation for each of the shape if it's valid or not
+    public String rotationCheck(int shape, float angle) {
+
+        // shapes #:
+        // 1 - triangle1
+        // 2 - trapezium1
+        // 3 - trapezium2
+        //  ...
+
+        String text = ""; // check if the rotation is correct or not.
+        if(shape == 1) {
+            text = "correct";
+        }
+
+        return text;
+    }
+
+    // checks if the left shape is matched with the shape drawn on the blueprint
+    public String scaleCheck(double scale) {
+        double scaling = Math.round(scale * 100.0) / 100.0;
+
+        String text;
+        if(scaling == 1.0) {
+            text = "appropriate";
+        }else {
+            text = "not appropriate";
+        }
+        return text;
+    }
+
     @Override
     public void keyReleased(KeyEvent e) {
         // TODO Auto-generated method stub

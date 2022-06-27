@@ -289,27 +289,27 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
     private float trapezium8Z = 0f;
 
     // scales for the shapes which are added to the blueprint
-    private float scaleTriangle1 = 1f;
-    private float scaleTrapezium1 = 1f;
-    private float scaleTrapezium2 = 1f;
-    private float scaleTrapezium3 = 1f;
-    private float scaleTrapezium4 = 1f;
-    private float scaleTrapezium5 = 1f;
-    private float scaleRhombus1 = 1f;
-    private float scaleTriangle8 = 1f;
-    private float scaleTriangle2 = 1f;
-    private float scaleTriangle3 = 1f;
-    private float scaleTriangle4 = 1f;
-    private float scaleRhombusNarrow1 = 1f;
-    private float scaleRhombusNarrow2 = 1f;
-    private float scaleTriangle5 = 1f;
-    private float scaleTriangle6 = 1f;
-    private float scaleRhombusNarrow3 = 1f;
-    private float scaleTriangle7 = 1f;
-    private float scaleTrapezium6 = 1f;
-    private float scaleHexagon1 = 1f;
-    private float scaleTrapezium7 = 1f;
-    private float scaleTrapezium8 = 1f;
+    private float scaleTriangle1 = 0.8f;
+    private float scaleTrapezium1 = 0.8f;
+    private float scaleTrapezium2 = 0.8f;
+    private float scaleTrapezium3 = 0.8f;
+    private float scaleTrapezium4 = 0.8f;
+    private float scaleTrapezium5 = 0.8f;
+    private float scaleRhombus1 = 0.8f;
+    private float scaleTriangle8 = 0.8f;
+    private float scaleTriangle2 = 0.8f;
+    private float scaleTriangle3 = 0.8f;
+    private float scaleTriangle4 = 0.8f;
+    private float scaleRhombusNarrow1 = 0.8f;
+    private float scaleRhombusNarrow2 = 0.8f;
+    private float scaleTriangle5 = 0.8f;
+    private float scaleTriangle6 = 0.8f;
+    private float scaleRhombusNarrow3 = 0.8f;
+    private float scaleTriangle7 = 0.8f;
+    private float scaleTrapezium6 = 0.8f;
+    private float scaleHexagon1 = 0.8f;
+    private float scaleTrapezium7 = 0.8f;
+    private float scaleTrapezium8 = 0.8f;
 
     // rotations
     private float rotateDelta = 1f;
@@ -335,6 +335,28 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
     private float rotateHexagon1 = 0f;
     private float rotateTrapezium7 = 0f;
     private float rotateTrapezium8 = 0f;
+
+    private float rotateBlueprintTriangle1 = 90f;
+    private float rotateBlueprintTrapezium1 = 210f;
+    private float rotateBlueprintTrapezium2 = 90f;
+    private float rotateBlueprintTrapezium3 = 270f;
+    private float rotateBlueprintTrapezium4 = -28f;
+    private float rotateBlueprintTrapezium5 = 30f;
+    private float rotateBlueprintRhombus1 = 90f;
+    private float rotateBlueprintTriangle8 = -45f;
+    private float rotateBlueprintTriangle2 = 90f;
+    private float rotateBlueprintTriangle3 = 270f;
+    private float rotateBlueprintTriangle4 = 270f;
+    private float rotateBlueprintRhombusNarrow1 = 30f;
+    private float rotateBlueprintRhombusNarrow2 = 30f;
+    private float rotateBlueprintTriangle5 = -30f;
+    private float rotateBlueprintTriangle6 = -30f;
+    private float rotateBlueprintRhombusNarrow3 = 118f;
+    private float rotateBlueprintTriangle7 = -90f;
+    private float rotateBlueprintTrapezium6 = -90f;
+    private float rotateBlueprintHexagon1 = 90f;
+    private float rotateBlueprintTrapezium7 = -30f;
+    private float rotateBlueprintTrapezium8 = 30f;
 
     // initialize a variable to traverse through the blueprint
     private int traverse = 0;
@@ -580,6 +602,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                         System.out.println(triangle1_idn);
                     } else if (traverse == 2) {
                         trapezium1_idn = nameId;
+                        System.out.println(trapezium1_idn);
                     } else if (traverse == 3) {
                         trapezium2_idn = nameId;
                     } else if (traverse == 4) {
@@ -723,6 +746,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                 if (e.getSource() == newGameButton) {
                     //TODO: start a new game
                     newGame = true;
+                    gameFinished = false;
                 }
                 newGameButton.setFocusable(false);
             });
@@ -805,7 +829,12 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         }
 
         // add a bit off specular light to make the objects drawn shine a bit
-        gl.glMaterialfv(GL2.GL_FRONT_AND_BACK, GL2.GL_SPECULAR, globalAmbient, 0);
+        //gl.glMaterialfv(GL2.GL_FRONT_AND_BACK, GL2.GL_SPECULAR, globalAmbient, 0);
+
+        // print the matched shape, once we've inserted it properly
+        if(!gameFinished){
+            printMatch(drawable);
+        }
 
         // initialization of our variables & reset the game if the user decides to
         if (newGame) {
@@ -1586,6 +1615,10 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                 Shapes.hexagon(gl);
                 break;
 
+            case SQUARE_ID:
+                Shapes.square(gl);
+                break;
+
         }
     }
 
@@ -1597,7 +1630,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(triangle1X, triangle1Y, triangle1Z);
-        gl.glRotatef(90, 0, 0, 1);
+        gl.glRotatef(rotateBlueprintTriangle1, 0, 0, 1);
         gl.glTranslatef(-triangle1X, -triangle1Y, -triangle1Z);
         Shapes.triangle(gl, 0.5, false); // add the square
         gl.glPopMatrix();
@@ -1611,7 +1644,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(trapezium1X, trapezium1Y, trapezium1Z);
-        gl.glRotatef(210, 0, 0, 1);
+        gl.glRotatef(rotateBlueprintTrapezium1, 0, 0, 1);
         gl.glTranslatef(-trapezium1X, -trapezium1Y, -trapezium1Z);
         Shapes.trapezium(gl, 0.5, false);
         gl.glPopMatrix();
@@ -1625,7 +1658,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(trapezium2X, trapezium2Y, trapezium2Z);
-        gl.glRotatef(90, 0, 0, 1);
+        gl.glRotatef(rotateBlueprintTrapezium2, 0, 0, 1);
         gl.glTranslatef(-trapezium2X, -trapezium2Y, -trapezium2Z);
         Shapes.trapezium(gl, 0.5, false);
         gl.glPopMatrix();
@@ -1639,7 +1672,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(trapezium3X, trapezium3Y, trapezium3Z);
-        gl.glRotatef(270, 0, 0, 1);
+        gl.glRotatef(rotateBlueprintTrapezium3, 0, 0, 1);
         gl.glTranslatef(-trapezium3X, -trapezium3Y, -trapezium3Z);
         Shapes.trapezium(gl, 0.5, false);
         gl.glPopMatrix();
@@ -1653,7 +1686,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(trapezium4X, trapezium4Y, trapezium4Z);
-        gl.glRotatef(-28, 0, 0, 1);
+        gl.glRotatef(rotateBlueprintTrapezium4, 0, 0, 1);
         gl.glTranslatef(-trapezium4X, -trapezium4Y, -trapezium4Z);
         Shapes.trapezium(gl, 0.5, false);
         gl.glPopMatrix();
@@ -1667,7 +1700,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(trapezium5X, trapezium5Y, trapezium5Z);
-        gl.glRotatef(30, 0, 0, 1);
+        gl.glRotatef(rotateBlueprintTrapezium5, 0, 0, 1);
         gl.glTranslatef(-trapezium5X, -trapezium5Y, -trapezium5Z);
         Shapes.trapezium(gl, 0.5, false);
         gl.glPopMatrix();
@@ -1681,7 +1714,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(rhombus1X, rhombus1Y, rhombus1Z);
-        gl.glRotatef(90, 0, 0, 1);
+        gl.glRotatef(rotateBlueprintRhombus1, 0, 0, 1);
         gl.glTranslatef(-rhombus1X, -rhombus1Y, -rhombus1Z);
         Shapes.rhombus(gl, 0.5, false);
         gl.glPopMatrix();
@@ -1695,7 +1728,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(triangle8X, triangle8Y, triangle8Z);
-        gl.glRotatef(-45, 0, 0, 1);
+        gl.glRotatef(rotateBlueprintTriangle8, 0, 0, 1);
         gl.glTranslatef(-triangle8X, -triangle8Y, -triangle8Z);
         Shapes.triangle(gl, 0.5, false); // add the square
         gl.glPopMatrix();
@@ -1710,7 +1743,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(triangle2X, triangle2Y, triangle2Z);
-        gl.glRotatef(90, 0, 0, 1);
+        gl.glRotatef(rotateBlueprintTriangle2, 0, 0, 1);
         gl.glTranslatef(-triangle2X, -triangle2Y, -triangle2Z);
         Shapes.triangle(gl, 0.5, false); // add the square
         gl.glPopMatrix();
@@ -1724,7 +1757,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(triangle3X, triangle3Y, triangle3Z);
-        gl.glRotatef(270, 0, 0, 1);
+        gl.glRotatef(rotateBlueprintTriangle3, 0, 0, 1);
         gl.glTranslatef(-triangle3X, -triangle3Y, -triangle3Z);
         Shapes.triangle(gl, 0.5, false); // add the square
         gl.glPopMatrix();
@@ -1738,7 +1771,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(triangle4X, triangle4Y, triangle4Z);
-        gl.glRotatef(270, 0, 0, 1);
+        gl.glRotatef(rotateBlueprintTriangle4, 0, 0, 1);
         gl.glTranslatef(-triangle4X, -triangle4Y, -triangle4Z);
         Shapes.triangle(gl, 0.5, false); // add the square
         gl.glPopMatrix();
@@ -1752,7 +1785,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(rhombusNarrow1X, rhombusNarrow1Y, rhombusNarrow1Z);
-        gl.glRotatef(30, 0, 0, 1);
+        gl.glRotatef(rotateBlueprintRhombusNarrow1, 0, 0, 1);
         gl.glTranslatef(-rhombusNarrow1X, -rhombusNarrow1Y, -rhombusNarrow1Z);
         Shapes.rhombusNarrow(gl, 0.6, false); // add the square
         gl.glPopMatrix();
@@ -1766,7 +1799,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(rhombusNarrow2X, rhombusNarrow2Y, rhombusNarrow2Z);
-        gl.glRotatef(30, 0, 0, 1);
+        gl.glRotatef(rotateBlueprintRhombusNarrow2, 0, 0, 1);
         gl.glTranslatef(-rhombusNarrow2X, -rhombusNarrow2Y, -rhombusNarrow2Z);
         Shapes.rhombusNarrow(gl, 0.6, false); // add the square
         gl.glPopMatrix();
@@ -1780,7 +1813,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(triangle5X, triangle5Y, triangle5Z);
-        gl.glRotatef(-30, 0, 0, 1);
+        gl.glRotatef(rotateBlueprintTriangle5, 0, 0, 1);
         gl.glTranslatef(-triangle5X, -triangle5Y, -triangle5Z);
         Shapes.triangle(gl, 0.5, false); // add the square
         gl.glPopMatrix();
@@ -1794,7 +1827,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(triangle6X, triangle6Y, triangle6Z);
-        gl.glRotatef(-30, 0, 0, 1);
+        gl.glRotatef(rotateBlueprintTriangle6, 0, 0, 1);
         gl.glTranslatef(-triangle6X, -triangle6Y, -triangle6Z);
         Shapes.triangle(gl, 0.5, false); // add the square
         gl.glPopMatrix();
@@ -1808,7 +1841,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(rhombusNarrow3X, rhombusNarrow3Y, rhombusNarrow3Z);
-        gl.glRotatef(118, 0, 0, 1);
+        gl.glRotatef(rotateBlueprintRhombusNarrow3, 0, 0, 1);
         gl.glTranslatef(-rhombusNarrow3X, -rhombusNarrow3Y, -rhombusNarrow3Z);
         Shapes.rhombusNarrow(gl, 0.6, false); // add the square
         gl.glPopMatrix();
@@ -1822,7 +1855,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(triangle7X, triangle7Y, triangle7Z);
-        gl.glRotatef(-90, 0, 0, 1);
+        gl.glRotatef(rotateBlueprintTriangle7, 0, 0, 1);
         gl.glTranslatef(-triangle7X, -triangle7Y, -triangle7Z);
         Shapes.triangle(gl, 0.5, false); // add the square
         gl.glPopMatrix();
@@ -1836,7 +1869,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(trapezium6X, trapezium6Y, trapezium6Z);
-        gl.glRotatef(-90, 0, 0, 1);
+        gl.glRotatef(rotateBlueprintTrapezium6, 0, 0, 1);
         gl.glTranslatef(-trapezium6X, -trapezium6Y, -trapezium6Z);
         Shapes.trapezium(gl, 0.5, false);
         gl.glPopMatrix();
@@ -1850,7 +1883,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(hexagon1X, hexagon1Y, hexagon1Z);
-        gl.glRotatef(90, 0, 0, 1);
+        gl.glRotatef(rotateBlueprintHexagon1, 0, 0, 1);
         gl.glTranslatef(-hexagon1X, -hexagon1Y, -hexagon1Z);
         Shapes.hexagon(gl, 0.5, false);
         gl.glPopMatrix();
@@ -1864,7 +1897,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(trapezium7X, trapezium7Y, trapezium7Z);
-        gl.glRotatef(-30, 0, 0, 1);
+        gl.glRotatef(rotateBlueprintTrapezium7, 0, 0, 1);
         gl.glTranslatef(-trapezium7X, -trapezium7Y, -trapezium7Z);
         Shapes.trapezium(gl, 0.5, false);
         gl.glPopMatrix();
@@ -1878,7 +1911,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(trapezium8X, trapezium8Y, trapezium8Z);
-        gl.glRotatef(30, 0, 0, 1);
+        gl.glRotatef(rotateBlueprintTrapezium8, 0, 0, 1);
         gl.glTranslatef(-trapezium8X, -trapezium8Y, -trapezium8Z);
         Shapes.trapezium(gl, 0.5, false);
         gl.glPopMatrix();
@@ -2990,23 +3023,56 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
 
     // display text on the window
     public void writeText(String text, int x, int y) {
-        // TODO implement
+        textMatch.beginRendering(windowWidth, windowHeight);
+        textMatch.setColor(0.3f, 0.3f, 0.5f, 1);
+        textMatch.draw(text, x, y);
+        textMatch.endRendering();
     }
 
     // display the matched shape once it's done
     public void printMatch(GLAutoDrawable drawable) {
+        String correctMatchText = "Well Done! Correct shape, rotation and scaling";
+        int xTextLocation = (int)(windowWidth/4f);
+        int yTextLocation = windowHeight-500;
 
         // check if the shape is matched while we traverse through the blueprint (full of different shapes)
         if(traverse == 1) {
-
             // check if the shape is valid or no
-            if(shape[1].equals(shape[triangle1_idn - 27])) {
+            if(triangle1_idn>27){
+                if(shape[1].equals(shape[triangle1_idn-27])) {
 
-                boolean isLeftScaleValid = scaleCheck(scaleTriangle1).equals("appropriate");
-                boolean isLeftRotationValid = rotationCheck(1, rotateTriangle1).equals("correct");
-                if(isLeftScaleValid && isLeftRotationValid) {
-                    // TODO: Implement a function to write the above
-                    // -> Well done correct shape rotation and scale
+                    // check if the scaling is appropriate
+                    boolean isTriangle1ScaleValid = scaleCheck(scaleTriangle1).equals("appropriate");
+
+                    // check if the rotation matches
+                    boolean isTriangle1RotationValid = rotationCheck(1, rotateTriangle1).equals("correct");
+                    System.out.println("isTriangle1ScaleValid: " + isTriangle1ScaleValid);
+                    System.out.println("isTriangle1RotationValid: " + isTriangle1RotationValid);
+                    if(isTriangle1ScaleValid && isTriangle1RotationValid) {
+                        // Implement a function to write the above
+                        writeText(correctMatchText, xTextLocation, yTextLocation);
+                    }
+                }
+            }
+
+        }
+
+        if(traverse == 2) {
+            // check if the shape is valid or no
+            if(trapezium1_idn>32){
+                if(shape[2].equals(shape[trapezium1_idn-31])) {
+
+                    // check if the scaling is appropriate
+                    boolean isTrapezium1ScaleValid = scaleCheck(scaleTrapezium1).equals("appropriate");
+
+                    // check if the rotation matches
+                    boolean isTrapezium1RotationValid = rotationCheck(2, rotateTrapezium1).equals("correct");
+                    System.out.println("isTrapezium1ScaleValid: " + isTrapezium1ScaleValid);
+                    System.out.println("isTrapezium1RotationValid: " + isTrapezium1RotationValid);
+                    if(isTrapezium1ScaleValid && isTrapezium1RotationValid) {
+                        // Implement a function to write the above
+                        writeText(correctMatchText, xTextLocation, yTextLocation);
+                    }
                 }
             }
         }
@@ -3024,7 +3090,20 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
 
         String text = ""; // check if the rotation is correct or not.
         if(shape == 1) {
-            text = "correct";
+            if(angle == rotateBlueprintTriangle1){
+                text = "correct";
+            }else{
+                text = "incorrect";
+            }
+
+        }
+
+        if(shape == 2) {
+            if(angle == rotateBlueprintTrapezium1){
+                text = "correct";
+            }else{
+                text = "incorrect";
+            }
         }
 
         return text;

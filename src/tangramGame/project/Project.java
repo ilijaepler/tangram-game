@@ -11,7 +11,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.nio.IntBuffer;
-import java.util.ArrayList;
 
 public class Project extends GLCanvas implements GLEventListener, KeyListener, MouseListener {
 
@@ -28,7 +27,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
     private JButton finishButton;
     private JButton helpButton;
     private JButton quitButton;
-    private JButton newGameButton;
+    private JButton resetButton;
 
     // used to display either text, images, or both
     private JLabel label;
@@ -82,18 +81,6 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
     private int hexagon1_idn = 0;
     private int trapezium7_idn = 0;
     private int trapezium8_idn = 0;
-
-    // color of the palette shape inserted into the blueprint -
-    // this color will change once user finishes the game
-    private float addShapeRed = 0f;
-    private float addShapeGreen = 0f;
-    private float addShapeBlue = 0f;
-
-    // initialize the default color for the shapes to be drawn for each section:
-    // top, left and right
-    private float defaultRed = 0.5f;
-    private float defaultGreen = 0.5f;
-    private float defaultBlue = 0.5f;
 
     // blueprint shapes colors
 
@@ -364,32 +351,8 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
     // initialize a constant value for scaling the shape in the blueprint (increase/decrease)
     private float scaleDelta = 0.1f;
 
-    // initialize the scale of the inserted shapes into the blueprint
-	/*private float scaleLeft = 0.5f;
-	private float scaleTop = 0.5f;
-	private float scaleRight = 0.5f;*/
-
-    // initialize angle of the inserted shapes into the blueprint
-	/*private int angleLeftX = 90;  // LEFT
-	private int angleLeftY = 90;
-	private int angleLeftZ = 90;
-
-	private int angleTopX = 90;  // TOP
-	private int angleTopY = 90;
-	private int angleTopZ = 90;
-
-	private int angleRightX = 90; // RIGHT
-	private int angleRightY = 90;
-	private int angleRightZ = 90;*/
-    private int angleInsertedBlueprint = 0;
-
     // initialize a constant to rotate the shape inserted into the blueprint at an angle
     private float rotate = 1;
-
-    // initialize the colors of the shapes on the palette
-	/*private float paletteRed = 0.45f;
-	private float paletteGreen = 0.20f;
-	private float paletteBlue = 0.75f;*/
 
     // initialize the colors for the trapezium
     private float trapeziumRed = 1f;
@@ -477,32 +440,13 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
     private int xCursor = 0;
     private int yCursor = 0;
 
-    // the current angle of the blueprint in X & Y,
-	/*private int currentAngleOfRotationX = 0;
-	private int currentAngleOfRotationY = 0;
-	private int currentAngleOfVisibleField = 55; // camera (near)*/
-
-    private int angleDelta = 5; // the value we want to rotate the shape
-
     private float aspect; // calculate the aspect ratio for the blueprint
     private float aspectP; // aspect ratio for the palette
 
     private boolean gameFinished = false;
     private boolean newGame = true;
 
-    // translate the shape in the blueprint
-	/*private float translateX;
-	private float translateY;
-	private float translateZ;
-
-	// scale the shape in the blueprint
-	private float scale;
-	private float scaleLeftShape;
-	private float scaleRightShape;
-	private float scaleTopShape;*/
-
     public Project() {
-
         // get the opengl profile context
         GLProfile profile = GLProfile.getDefault();
 
@@ -538,16 +482,16 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
             finishButton = new JButton("Finish");
             quitButton = new JButton("Quit");
             helpButton = new JButton("Help");
-            newGameButton = new JButton("New Game");
+            resetButton = new JButton("Reset");
 
             removeButton.setPreferredSize(new Dimension(100, 20));
             addButton.setPreferredSize(new Dimension(100, 20));
             finishButton.setPreferredSize(new Dimension(100, 20));
             quitButton.setPreferredSize(new Dimension(100, 20));
             helpButton.setPreferredSize(new Dimension(100, 20));
-            newGameButton.setPreferredSize(new Dimension(100, 20));
+            resetButton.setPreferredSize(new Dimension(100, 20));
 
-            // initialize the Jlabel text
+            // initialize the JLabel text
             label = new JLabel("Click on the help button to read the game instructions.");
 
             // add the checkboxes
@@ -577,7 +521,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
             row2.add(label);
             row2.add(helpButton);
             row2.add(finishButton);
-            row2.add(newGameButton);
+            row2.add(resetButton);
             row2.add(quitButton);
             bottom.add(row2);
 
@@ -739,7 +683,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                                     "T - negative rotation of the shape inserted into the blueprint \n" +
                                     "Add Button - after selecting a shape from the palette, you can add it to the selected blueprint shape by the Add button\n" +
                                     "Remove Button - after selecting a shape from the palette, you can remove it from the selected blueprint shape by the Remove button\n" + "Finish Button - after the game finished, by pressing on the finish button, you can see your results\n" +
-                                    "New Game Button - generate a new game\n" +
+                                    "Reset Button - reset a game game\n" +
                                     "Quit Button - quit from the game \n" +
                                     "Light - you can enable/disable different light models by checking/unchecking  the light chekboxes (global ambient light, ambient, diffuse and specular)\n"
                             , "Help", JOptionPane.INFORMATION_MESSAGE);
@@ -759,15 +703,15 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                 quitButton.setFocusable(false);
             });
 
-            newGameButton.addActionListener(e -> {
+            resetButton.addActionListener(e -> {
 
                 // determine which button was click on
-                if (e.getSource() == newGameButton) {
+                if (e.getSource() == resetButton) {
                     //TODO: start a new game
                     newGame = true;
                     gameFinished = false;
                 }
-                newGameButton.setFocusable(false);
+                resetButton.setFocusable(false);
             });
 
             frame.getContentPane().add(canvas);
@@ -1140,33 +1084,95 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
     }
 
     private void newGame() {
+        traverse = 0;
 
-        // initialize an array-list and add numbers from 1- 3
-        // cause we want to have 3 shapes to draw
-        ArrayList<Integer> list = new ArrayList<Integer>();
+        rotateTriangle1 = 0f;
+        rotateTrapezium1 = 0f;
+        rotateTrapezium2 = 0f;
+        rotateTrapezium3 = 0f;
+        rotateTrapezium4 = 0f;
+        rotateTrapezium5 = 0f;
+        rotateRhombus1 = 0f;
+        rotateTriangle8 = 0f;
+        rotateTriangle2 = 0f;
+        rotateTriangle3 = 0f;
+        rotateTriangle4 = 0f;
+        rotateRhombusNarrow1 = 0f;
+        rotateRhombusNarrow2 = 0f;
+        rotateTriangle5 = 0f;
+        rotateTriangle6 = 0f;
+        rotateRhombusNarrow3 = 0f;
+        rotateTriangle7 = 0f;
+        rotateTrapezium6 = 0f;
+        rotateHexagon1 = 0f;
+        rotateTrapezium7 = 0f;
+        rotateTrapezium8 = 0f;
 
-        for (int i = 1; i < TOTAL_NUM_OF_SHAPES; i++) {
-            list.add(i);
-        }
+        scaleTriangle1 = 0.8f;
+        scaleTrapezium1 = 0.8f;
+        scaleTrapezium2 = 0.8f;
+        scaleTrapezium3 = 0.8f;
+        scaleTrapezium4 = 0.8f;
+        scaleTrapezium5 = 0.8f;
+        scaleRhombus1 = 0.8f;
+        scaleTriangle8 = 0.8f;
+        scaleTriangle2 = 0.8f;
+        scaleTriangle3 = 0.8f;
+        scaleTriangle4 = 0.8f;
+        scaleRhombusNarrow1 = 0.8f;
+        scaleRhombusNarrow2 = 0.8f;
+        scaleTriangle5 = 0.8f;
+        scaleTriangle6 = 0.8f;
+        scaleRhombusNarrow3 = 0.8f;
+        scaleTriangle7 = 0.8f;
+        scaleTrapezium6 = 0.8f;
+        scaleHexagon1 = 0.8f;
+        scaleTrapezium7 = 0.8f;
+        scaleTrapezium8 = 0.8f;
 
-        // shuffle the array-list and get the random numbers in it
-		/*Collections.shuffle(list);
-		randomTop = list.get(0);
-		randomRight = list.get(1);
-		randomLeft = list.get(2);*/
+        triangle1_idn = 0;
+        trapezium1_idn = 0;
+        trapezium2_idn = 0;
+        trapezium3_idn = 0;
+        trapezium4_idn = 0;
+        trapezium5_idn = 0;
+        rhombus1_idn = 0;
+        triangle8_idn = 0;
+        triangle2_idn = 0;
+        triangle3_idn = 0;
+        triangle4_idn = 0;
+        rhombusNarrow1_idn = 0;
+        rhombusNarrow2_idn = 0;
+        triangle5_idn = 0;
+        triangle6_idn = 0;
+        rhombusNarrow3_idn = 0;
+        triangle7_idn = 0;
+        trapezium6_idn = 0;
+        hexagon1_idn = 0;
+        trapezium7_idn = 0;
+        trapezium8_idn = 0;
 
-        // reset all the values
-		/*currentAngleOfRotationX = 0;
-		currentAngleOfRotationY = 0;
-		currentAngleOfVisibleField = 55;
-
-		// reset the translate values of the blueprint
-		translateX = 0;
-		translateY = 0;
-		translateZ = 0;
-
-		// reset the scale of the blueprint
-		scale = 1;*/
+        triangle1Red = 0;
+        trapezium1Red = 0;
+        trapezium2Red = 0;
+        trapezium3Red = 0;
+        trapezium4Red = 0;
+        trapezium5Red = 0;
+        rhombus1Red = 0;
+        triangle8Red = 0;
+        triangle2Red = 0;
+        triangle3Red = 0;
+        triangle4Red = 0;
+        rhombusNarrow1Red = 0;
+        rhombusNarrow2Red = 0;
+        triangle5Red = 0;
+        triangle6Red = 0;
+        rhombusNarrow3Red = 0;
+        triangle7Red = 0;
+        trapezium6Red = 0;
+        hexagon1Red = 0;
+        trapezium7Red = 0;
+        trapezium8Red = 0;
     }
 
     // set the position of the camera for the blueprint
@@ -2745,7 +2751,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                 colorShape(traverse);
 
                 if (traverse == TOTAL_NUM_OF_SHAPES) {
-                    traverse = 1;
+                    traverse = 0;
                 }
                 break;
 

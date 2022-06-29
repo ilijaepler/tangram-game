@@ -59,6 +59,31 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
     // initialize a name ID for picking the shapes
     private int nameId = 0;
 
+    private int matchedShapes = 0;
+
+    // boolean for checking if the shape is matched
+    private boolean triangle1isMatched = false;
+    private boolean trapezium1isMatched = false;
+    private boolean trapezium2isMatched = false;
+    private boolean trapezium3isMatched = false;
+    private boolean trapezium4isMatched = false;
+    private boolean trapezium5isMatched = false;
+    private boolean rhombus1isMatched = false;
+    private boolean triangle8isMatched = false;
+    private boolean triangle2isMatched = false;
+    private boolean triangle3isMatched = false;
+    private boolean triangle4isMatched = false;
+    private boolean rhombusNarrow1isMatched = false;
+    private boolean rhombusNarrow2isMatched = false;
+    private boolean triangle5isMatched = false;
+    private boolean triangle6isMatched = false;
+    private boolean rhombusNarrow3isMatched = false;
+    private boolean triangle7isMatched = false;
+    private boolean trapezium6isMatched = false;
+    private boolean hexagon1isMatched = false;
+    private boolean trapezium7isMatched = false;
+    private boolean trapezium8isMatched = false;
+
     // id for the palette shape inserted into the blueprint
     private int triangle1_idn = 0;
     private int trapezium1_idn = 0;
@@ -665,7 +690,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
 
                 // determine which button was click on
                 if (e.getSource() == finishButton) {
-                    //TODO: assist us in knowing which shape to be drawn
+                    gameFinished = true;
                 }
                 finishButton.setFocusable(false);
             });
@@ -793,6 +818,34 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
 
         // add a bit off specular light to make the objects drawn shine a bit
         //gl.glMaterialfv(GL2.GL_FRONT_AND_BACK, GL2.GL_SPECULAR, globalAmbient, 0);
+
+        // check if the game is finished
+        if(gameFinished){
+            printResult(drawable);
+            if(matchedShapes==21){
+                triangle1Blue = 1f;
+                trapezium1Blue = 1f;
+                trapezium2Blue = 1f;
+                trapezium3Blue = 1f;
+                trapezium4Blue = 1f;
+                trapezium5Blue = 1f;
+                rhombus1Blue = 1f;
+                triangle8Blue = 1f;
+                triangle2Blue = 1f;
+                triangle3Blue = 1f;
+                triangle4Blue = 1f;
+                rhombusNarrow1Blue = 1f;
+                rhombusNarrow2Blue = 1f;
+                triangle5Blue = 1f;
+                triangle6Blue = 1f;
+                rhombusNarrow3Blue = 1f;
+                triangle7Blue = 1f;
+                trapezium6Blue = 1f;
+                hexagon1Blue = 1f;
+                trapezium7Blue = 1f;
+                trapezium8Blue = 1f;
+            }
+        }
 
         // print the matched shape, once we've inserted it properly
         if(!gameFinished){
@@ -1173,6 +1226,51 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         hexagon1Red = 0;
         trapezium7Red = 0;
         trapezium8Red = 0;
+
+        triangle1Blue = 0;
+        trapezium1Blue = 0;
+        trapezium2Blue = 0;
+        trapezium3Blue = 0;
+        trapezium4Blue = 0;
+        trapezium5Blue = 0;
+        rhombus1Blue = 0;
+        triangle8Blue = 0;
+        triangle2Blue = 0;
+        triangle3Blue = 0;
+        triangle4Blue = 0;
+        rhombusNarrow1Blue = 0;
+        rhombusNarrow2Blue = 0;
+        triangle5Blue = 0;
+        triangle6Blue = 0;
+        rhombusNarrow3Blue = 0;
+        triangle7Blue = 0;
+        trapezium6Blue = 0;
+        hexagon1Blue = 0;
+        trapezium7Blue = 0;
+        trapezium8Blue = 0;
+
+        matchedShapes = 0;
+        triangle1isMatched = false;
+        trapezium1isMatched = false;
+        trapezium2isMatched = false;
+        trapezium3isMatched = false;
+        trapezium4isMatched = false;
+        trapezium5isMatched = false;
+        rhombus1isMatched = false;
+        triangle8isMatched = false;
+        triangle2isMatched = false;
+        triangle3isMatched = false;
+        triangle4isMatched = false;
+        rhombusNarrow1isMatched = false;
+        rhombusNarrow2isMatched = false;
+        triangle5isMatched = false;
+        triangle6isMatched = false;
+        rhombusNarrow3isMatched = false;
+        triangle7isMatched = false;
+        trapezium6isMatched = false;
+        hexagon1isMatched = false;
+        trapezium7isMatched = false;
+        trapezium8isMatched = false;
     }
 
     // set the position of the camera for the blueprint
@@ -3076,6 +3174,10 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                     if(isTriangle1ScaleValid && isTriangle1RotationValid) {
                         // Implement a function to write the above
                         writeText(correctMatchText, xTextLocation, yTextLocation);
+                        if(!triangle1isMatched){
+                            matchedShapes++;
+                            triangle1isMatched = true;
+                        }
                     }
                 }
             }
@@ -3097,6 +3199,10 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                     if(isTrapezium1ScaleValid && isTrapezium1RotationValid) {
                         // Implement a function to write the above
                         writeText(correctMatchText, xTextLocation, yTextLocation);
+                        if(!trapezium1isMatched){
+                            matchedShapes++;
+                            trapezium1isMatched = true;
+                        }
                     }
                 }
             }
@@ -3117,6 +3223,10 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                     if(isTrapezium2ScaleValid && isTrapezium2RotationValid) {
                         // Implement a function to write the above
                         writeText(correctMatchText, xTextLocation, yTextLocation);
+                        if(!trapezium2isMatched){
+                            matchedShapes++;
+                            trapezium2isMatched = true;
+                        }
                     }
                 }
             }
@@ -3137,6 +3247,10 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                     if(isTrapezium3ScaleValid && isTrapezium3RotationValid) {
                         // Implement a function to write the above
                         writeText(correctMatchText, xTextLocation, yTextLocation);
+                        if(!trapezium3isMatched){
+                            matchedShapes++;
+                            trapezium3isMatched = true;
+                        }
                     }
                 }
             }
@@ -3157,6 +3271,10 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                     if(isTrapezium4ScaleValid && isTrapezium4RotationValid) {
                         // Implement a function to write the above
                         writeText(correctMatchText, xTextLocation, yTextLocation);
+                        if(!trapezium4isMatched){
+                            matchedShapes++;
+                            trapezium4isMatched = true;
+                        }
                     }
                 }
             }
@@ -3177,6 +3295,10 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                     if(isTrapezium5ScaleValid && isTrapezium5RotationValid) {
                         // Implement a function to write the above
                         writeText(correctMatchText, xTextLocation, yTextLocation);
+                        if(!trapezium5isMatched){
+                            matchedShapes++;
+                            trapezium5isMatched = true;
+                        }
                     }
                 }
             }
@@ -3197,6 +3319,10 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                     if(isRhombus1ScaleValid && isRhombus1RotationValid) {
                         // Implement a function to write the above
                         writeText(correctMatchText, xTextLocation, yTextLocation);
+                        if(!rhombus1isMatched){
+                            matchedShapes++;
+                            rhombus1isMatched = true;
+                        }
                     }
                 }
             }
@@ -3219,6 +3345,10 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                     if(isTriangle8ScaleValid && isTriangle8RotationValid) {
                         // Implement a function to write the above
                         writeText(correctMatchText, xTextLocation, yTextLocation);
+                        if(!triangle8isMatched){
+                            matchedShapes++;
+                            triangle8isMatched = true;
+                        }
                     }
                 }
             }
@@ -3239,6 +3369,10 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                     if(isTriangle2ScaleValid && isTriangle2RotationValid) {
                         // Implement a function to write the above
                         writeText(correctMatchText, xTextLocation, yTextLocation);
+                        if(!triangle2isMatched){
+                            matchedShapes++;
+                            triangle2isMatched = true;
+                        }
                     }
                 }
             }
@@ -3259,6 +3393,10 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                     if(isTriangle3ScaleValid && isTriangle3RotationValid) {
                         // Implement a function to write the above
                         writeText(correctMatchText, xTextLocation, yTextLocation);
+                        if(!triangle3isMatched){
+                            matchedShapes++;
+                            triangle3isMatched = true;
+                        }
                     }
                 }
             }
@@ -3279,6 +3417,10 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                     if(isTriangle4ScaleValid && isTriangle4RotationValid) {
                         // Implement a function to write the above
                         writeText(correctMatchText, xTextLocation, yTextLocation);
+                        if(!triangle4isMatched){
+                            matchedShapes++;
+                            triangle4isMatched = true;
+                        }
                     }
                 }
             }
@@ -3299,6 +3441,10 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                     if(isRhombusNarrow1ScaleValid && isRhombusNarrow1RotationValid) {
                         // Implement a function to write the above
                         writeText(correctMatchText, xTextLocation, yTextLocation);
+                        if(!rhombusNarrow1isMatched){
+                            matchedShapes++;
+                            rhombusNarrow1isMatched = true;
+                        }
                     }
                 }
             }
@@ -3319,6 +3465,10 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                     if(isRhombusNarrow2ScaleValid && isRhombusNarrow2RotationValid) {
                         // Implement a function to write the above
                         writeText(correctMatchText, xTextLocation, yTextLocation);
+                        if(!rhombusNarrow2isMatched){
+                            matchedShapes++;
+                            rhombusNarrow2isMatched = true;
+                        }
                     }
                 }
             }
@@ -3339,6 +3489,10 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                     if(isTriangle5ScaleValid && isTriangle5RotationValid) {
                         // Implement a function to write the above
                         writeText(correctMatchText, xTextLocation, yTextLocation);
+                        if(!triangle5isMatched){
+                            matchedShapes++;
+                            triangle5isMatched = true;
+                        }
                     }
                 }
             }
@@ -3359,6 +3513,10 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                     if(isTriangle6ScaleValid && isTriangle6RotationValid) {
                         // Implement a function to write the above
                         writeText(correctMatchText, xTextLocation, yTextLocation);
+                        if(!triangle6isMatched){
+                            matchedShapes++;
+                            triangle6isMatched = true;
+                        }
                     }
                 }
             }
@@ -3379,6 +3537,10 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                     if(isRhombusNarrow3ScaleValid && isRhombusNarrow3RotationValid) {
                         // Implement a function to write the above
                         writeText(correctMatchText, xTextLocation, yTextLocation);
+                        if(!rhombusNarrow3isMatched){
+                            matchedShapes++;
+                            rhombusNarrow3isMatched = true;
+                        }
                     }
                 }
             }
@@ -3399,6 +3561,10 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                     if(isTriangle7ScaleValid && isTriangle7RotationValid) {
                         // Implement a function to write the above
                         writeText(correctMatchText, xTextLocation, yTextLocation);
+                        if(!triangle7isMatched){
+                            matchedShapes++;
+                            triangle7isMatched = true;
+                        }
                     }
                 }
             }
@@ -3419,6 +3585,10 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                     if(isTrapezium6ScaleValid && isTrapezium6RotationValid) {
                         // Implement a function to write the above
                         writeText(correctMatchText, xTextLocation, yTextLocation);
+                        if(!trapezium6isMatched){
+                            matchedShapes++;
+                            trapezium6isMatched = true;
+                        }
                     }
                 }
             }
@@ -3439,6 +3609,10 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                     if(isHexagon1ScaleValid && isHexagon1RotationValid) {
                         // Implement a function to write the above
                         writeText(correctMatchText, xTextLocation, yTextLocation);
+                        if(!hexagon1isMatched){
+                            matchedShapes++;
+                            hexagon1isMatched = true;
+                        }
                     }
                 }
             }
@@ -3459,6 +3633,10 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                     if(isTrapezium7ScaleValid && isTrapezium7RotationValid) {
                         // Implement a function to write the above
                         writeText(correctMatchText, xTextLocation, yTextLocation);
+                        if(!trapezium7isMatched){
+                            matchedShapes++;
+                            trapezium7isMatched = true;
+                        }
                     }
                 }
             }
@@ -3479,11 +3657,23 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                     if(isTrapezium8ScaleValid && isTrapezium8RotationValid) {
                         // Implement a function to write the above
                         writeText(correctMatchText, xTextLocation, yTextLocation);
+                        if(!trapezium8isMatched){
+                            matchedShapes++;
+                            trapezium8isMatched = true;
+                        }
                     }
                 }
             }
         }
 
+    }
+
+    // display the whole result once we click the finish button
+    public void printResult(GLAutoDrawable drawable){
+        String result = "RESULT: " + matchedShapes + "/21 shapes matched correctly.";
+        int xTextLocation = (int)(windowWidth/4f);
+        int yTextLocation = windowHeight-500;
+        writeText(result, xTextLocation, yTextLocation);
     }
 
     // checks the rotation for each of the shape if it's valid or not

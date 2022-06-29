@@ -44,8 +44,8 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
     private GLCanvas canvas;
     private FPSAnimator animator;
     private int windowWidth = 640;
-    private int windowHeight = 480;
-    private static final String TITLE = "Tangram";
+    private int windowHeight = 520;
+    private static final String TITLE = "Tangram game";
     private static final int FPS = 60;
 
     // allows us to access the opengl utility library like volume, all the
@@ -246,7 +246,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
     // narrow rhombus 2 blueprint coordinates
     private float rhombusNarrow2X = 2.7f;
     private float rhombusNarrow2Y = 1f;
-    private float rhombusNarrow2Z = 0f;
+    private float rhombusNarrow2Z = 2.7f;
 
     // triangle 5 blueprint coordinates
     private float triangle5X = -2.2f;
@@ -605,42 +605,61 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                         System.out.println(trapezium1_idn);
                     } else if (traverse == 3) {
                         trapezium2_idn = nameId;
+                        System.out.println(trapezium2_idn);
                     } else if (traverse == 4) {
                         trapezium3_idn = nameId;
+                        System.out.println(trapezium3_idn);
                     } else if (traverse == 5) {
                         trapezium4_idn = nameId;
+                        System.out.println(trapezium4_idn);
                     } else if (traverse == 6) {
                         trapezium5_idn = nameId;
+                        System.out.println(trapezium5_idn);
                     } else if (traverse == 7) {
                         rhombus1_idn = nameId;
+                        System.out.println(rhombus1_idn);
                     } else if (traverse == 8) {
                         triangle8_idn = nameId;
+                        System.out.println(triangle8_idn);
                     } else if (traverse == 9) {
                         triangle2_idn = nameId;
+                        System.out.println(triangle2_idn);
                     } else if (traverse == 10) {
                         triangle3_idn = nameId;
+                        System.out.println(triangle3_idn);
                     } else if (traverse == 11) {
                         triangle4_idn = nameId;
+                        System.out.println(triangle4_idn);
                     } else if (traverse == 12) {
                         rhombusNarrow1_idn = nameId;
+                        System.out.println(rhombusNarrow1_idn);
                     } else if (traverse == 13) {
                         rhombusNarrow2_idn = nameId;
+                        System.out.println(rhombusNarrow2_idn);
                     } else if (traverse == 14) {
                         triangle5_idn = nameId;
+                        System.out.println(triangle5_idn);
                     } else if (traverse == 15) {
                         triangle6_idn = nameId;
+                        System.out.println(triangle6_idn);
                     } else if (traverse == 16) {
                         rhombusNarrow3_idn = nameId;
+                        System.out.println(rhombusNarrow3_idn);
                     } else if (traverse == 17) {
                         triangle7_idn = nameId;
+                        System.out.println(triangle7_idn);
                     } else if (traverse == 18) {
                         trapezium6_idn = nameId;
+                        System.out.println(trapezium6_idn);
                     } else if (traverse == 19) {
                         hexagon1_idn = nameId;
+                        System.out.println(hexagon1_idn);
                     } else if (traverse == 20) {
                         trapezium7_idn = nameId;
+                        System.out.println(trapezium7_idn);
                     } else if (traverse == 21) {
                         trapezium8_idn = nameId;
+                        System.out.println(trapezium8_idn);
                     }
                 }
 
@@ -2726,7 +2745,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                 colorShape(traverse);
 
                 if (traverse == TOTAL_NUM_OF_SHAPES) {
-                    traverse = 0;
+                    traverse = 1;
                 }
                 break;
 
@@ -2929,7 +2948,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                 }else if (traverse == 6) {
                     rotateTrapezium5 += rotateDelta;
                 }else if (traverse == 7) {
-                    rotateRhombus1 += scaleDelta;
+                    rotateRhombus1 += rotateDelta;
                 }else if (traverse == 8) {
                     rotateTriangle8 += rotateDelta;
                 }else if (traverse == 9) {
@@ -2951,13 +2970,13 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                 }else if (traverse == 17) {
                     rotateTriangle7 += rotateDelta;
                 }else if (traverse == 18) {
-                    rotateTrapezium6 += scaleDelta;
+                    rotateTrapezium6 += rotateDelta;
                 }else if (traverse == 19) {
-                    rotateHexagon1 += scaleDelta;
+                    rotateHexagon1 += rotateDelta;
                 }else if (traverse == 20) {
-                    rotateTrapezium7 += scaleDelta;
+                    rotateTrapezium7 += rotateDelta;
                 }else if (traverse == 21) {
-                    rotateTrapezium8 += scaleDelta;
+                    rotateTrapezium8 += rotateDelta;
                 }
 
                 break;
@@ -2978,7 +2997,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                 }else if (traverse == 6) {
                     rotateTrapezium5 -= rotateDelta;
                 }else if (traverse == 7) {
-                    rotateRhombus1 -= scaleDelta;
+                    rotateRhombus1 -= rotateDelta;
                 }else if (traverse == 8) {
                     rotateTriangle8 -= rotateDelta;
                 }else if (traverse == 9) {
@@ -3000,13 +3019,13 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                 }else if (traverse == 17) {
                     rotateTriangle7 -= rotateDelta;
                 }else if (traverse == 18) {
-                    rotateTrapezium6 -= scaleDelta;
+                    rotateTrapezium6 -= rotateDelta;
                 }else if (traverse == 19) {
-                    rotateHexagon1 -= scaleDelta;
+                    rotateHexagon1 -= rotateDelta;
                 }else if (traverse == 20) {
-                    rotateTrapezium7 -= scaleDelta;
+                    rotateTrapezium7 -= rotateDelta;
                 }else if (traverse == 21) {
-                    rotateTrapezium8 -= scaleDelta;
+                    rotateTrapezium8 -= rotateDelta;
                 }
 
                 break;
@@ -3077,6 +3096,388 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
             }
         }
 
+        if(traverse == 3) {
+            // check if the shape is valid or no
+            if(trapezium2_idn>32){
+                if(shape[3].equals(shape[trapezium2_idn-30])) {
+
+                    // check if the scaling is appropriate
+                    boolean isTrapezium2ScaleValid = scaleCheck(scaleTrapezium2).equals("appropriate");
+
+                    // check if the rotation matches
+                    boolean isTrapezium2RotationValid = rotationCheck(3, rotateTrapezium2).equals("correct");
+                    System.out.println("isTrapezium2ScaleValid: " + isTrapezium2ScaleValid);
+                    System.out.println("isTrapezium2RotationValid: " + isTrapezium2RotationValid);
+                    if(isTrapezium2ScaleValid && isTrapezium2RotationValid) {
+                        // Implement a function to write the above
+                        writeText(correctMatchText, xTextLocation, yTextLocation);
+                    }
+                }
+            }
+        }
+
+        if(traverse == 4) {
+            // check if the shape is valid or no
+            if(trapezium3_idn>32){
+                if(shape[4].equals(shape[trapezium3_idn-29])) {
+
+                    // check if the scaling is appropriate
+                    boolean isTrapezium3ScaleValid = scaleCheck(scaleTrapezium3).equals("appropriate");
+
+                    // check if the rotation matches
+                    boolean isTrapezium3RotationValid = rotationCheck(4, rotateTrapezium3).equals("correct");
+                    System.out.println("isTrapezium3ScaleValid: " + isTrapezium3ScaleValid);
+                    System.out.println("isTrapezium3RotationValid: " + isTrapezium3RotationValid);
+                    if(isTrapezium3ScaleValid && isTrapezium3RotationValid) {
+                        // Implement a function to write the above
+                        writeText(correctMatchText, xTextLocation, yTextLocation);
+                    }
+                }
+            }
+        }
+
+        if(traverse == 5) {
+            // check if the shape is valid or no
+            if(trapezium4_idn>32){
+                if(shape[5].equals(shape[trapezium4_idn-28])) {
+
+                    // check if the scaling is appropriate
+                    boolean isTrapezium4ScaleValid = scaleCheck(scaleTrapezium4).equals("appropriate");
+
+                    // check if the rotation matches
+                    boolean isTrapezium4RotationValid = rotationCheck(5, rotateTrapezium4).equals("correct");
+                    System.out.println("isTrapezium4ScaleValid: " + isTrapezium4ScaleValid);
+                    System.out.println("isTrapezium4RotationValid: " + isTrapezium4RotationValid);
+                    if(isTrapezium4ScaleValid && isTrapezium4RotationValid) {
+                        // Implement a function to write the above
+                        writeText(correctMatchText, xTextLocation, yTextLocation);
+                    }
+                }
+            }
+        }
+
+        if(traverse == 6) {
+            // check if the shape is valid or not
+            if(trapezium5_idn>32){
+                if(shape[6].equals(shape[trapezium5_idn-27])) {
+
+                    // check if the scaling is appropriate
+                    boolean isTrapezium5ScaleValid = scaleCheck(scaleTrapezium5).equals("appropriate");
+
+                    // check if the rotation matches
+                    boolean isTrapezium5RotationValid = rotationCheck(6, rotateTrapezium5).equals("correct");
+                    System.out.println("isTrapezium5ScaleValid: " + isTrapezium5ScaleValid);
+                    System.out.println("isTrapezium5RotationValid: " + isTrapezium5RotationValid);
+                    if(isTrapezium5ScaleValid && isTrapezium5RotationValid) {
+                        // Implement a function to write the above
+                        writeText(correctMatchText, xTextLocation, yTextLocation);
+                    }
+                }
+            }
+        }
+
+        if(traverse == 7) {
+            // check if the shape is valid or not
+            if(rhombus1_idn>28){
+                if(shape[7].equals(shape[rhombus1_idn-22])) {
+
+                    // check if the scaling is appropriate
+                    boolean isRhombus1ScaleValid = scaleCheck(scaleRhombus1).equals("appropriate");
+
+                    // check if the rotation matches
+                    boolean isRhombus1RotationValid = rotationCheck(7, rotateRhombus1).equals("correct");
+                    System.out.println("isRhombus1ScaleValid: " + isRhombus1ScaleValid);
+                    System.out.println("isRhombus1RotationValid: " + isRhombus1RotationValid);
+                    if(isRhombus1ScaleValid && isRhombus1RotationValid) {
+                        // Implement a function to write the above
+                        writeText(correctMatchText, xTextLocation, yTextLocation);
+                    }
+                }
+            }
+        }
+
+        if(traverse == 8) {
+            // check if the shape is valid or not
+            if(triangle8_idn>27){
+                System.out.println("shape[8] " + shape[8]);
+                System.out.println("shape[triangle8_idn-20] "+shape[triangle8_idn-20]);
+                if(shape[8].equals(shape[triangle8_idn-20])) {
+
+                    // check if the scaling is appropriate
+                    boolean isTriangle8ScaleValid = scaleCheck(scaleTriangle8).equals("appropriate");
+
+                    // check if the rotation matches
+                    boolean isTriangle8RotationValid = rotationCheck(8, rotateTriangle8).equals("correct");
+                    System.out.println("isTriangle8ScaleValid: " + isTriangle8ScaleValid);
+                    System.out.println("isRhombus1RotationValid: " + isTriangle8RotationValid);
+                    if(isTriangle8ScaleValid && isTriangle8RotationValid) {
+                        // Implement a function to write the above
+                        writeText(correctMatchText, xTextLocation, yTextLocation);
+                    }
+                }
+            }
+        }
+
+        if(traverse == 9) {
+            // check if the shape is valid or not
+            if(triangle2_idn>27){
+                if(shape[9].equals(shape[triangle2_idn-19])) {
+
+                    // check if the scaling is appropriate
+                    boolean isTriangle2ScaleValid = scaleCheck(scaleTriangle2).equals("appropriate");
+
+                    // check if the rotation matches
+                    boolean isTriangle2RotationValid = rotationCheck(9, rotateTriangle2).equals("correct");
+                    System.out.println("isTriangle2ScaleValid: " + isTriangle2ScaleValid);
+                    System.out.println("isTriangle2RotationValid: " + isTriangle2RotationValid);
+                    if(isTriangle2ScaleValid && isTriangle2RotationValid) {
+                        // Implement a function to write the above
+                        writeText(correctMatchText, xTextLocation, yTextLocation);
+                    }
+                }
+            }
+        }
+
+        if(traverse == 10) {
+            // check if the shape is valid or not
+            if(triangle3_idn>27){
+                if(shape[10].equals(shape[triangle3_idn-18])) {
+
+                    // check if the scaling is appropriate
+                    boolean isTriangle3ScaleValid = scaleCheck(scaleTriangle3).equals("appropriate");
+
+                    // check if the rotation matches
+                    boolean isTriangle3RotationValid = rotationCheck(10, rotateTriangle3).equals("correct");
+                    System.out.println("isTriangle3ScaleValid: " + isTriangle3ScaleValid);
+                    System.out.println("isTriangle3RotationValid: " + isTriangle3RotationValid);
+                    if(isTriangle3ScaleValid && isTriangle3RotationValid) {
+                        // Implement a function to write the above
+                        writeText(correctMatchText, xTextLocation, yTextLocation);
+                    }
+                }
+            }
+        }
+
+        if(traverse == 11) {
+            // check if the shape is valid or not
+            if(triangle4_idn>27){
+                if(shape[11].equals(shape[triangle4_idn-17])) {
+
+                    // check if the scaling is appropriate
+                    boolean isTriangle4ScaleValid = scaleCheck(scaleTriangle4).equals("appropriate");
+
+                    // check if the rotation matches
+                    boolean isTriangle4RotationValid = rotationCheck(11, rotateTriangle4).equals("correct");
+                    System.out.println("isTriangle4ScaleValid: " + isTriangle4ScaleValid);
+                    System.out.println("isTriangle4RotationValid: " + isTriangle4RotationValid);
+                    if(isTriangle4ScaleValid && isTriangle4RotationValid) {
+                        // Implement a function to write the above
+                        writeText(correctMatchText, xTextLocation, yTextLocation);
+                    }
+                }
+            }
+        }
+
+        if(traverse == 12) {
+            // check if the shape is valid or not
+            if(rhombusNarrow1_idn>31){
+                if(shape[12].equals(shape[rhombusNarrow1_idn-20])) {
+
+                    // check if the scaling is appropriate
+                    boolean isRhombusNarrow1ScaleValid = scaleCheck(scaleRhombusNarrow1).equals("appropriate");
+
+                    // check if the rotation matches
+                    boolean isRhombusNarrow1RotationValid = rotationCheck(12, rotateRhombusNarrow1).equals("correct");
+                    System.out.println("isRhombusNarrow1ScaleValid: " + isRhombusNarrow1ScaleValid);
+                    System.out.println("isRhombusNarrow1RotationValid: " + isRhombusNarrow1RotationValid);
+                    if(isRhombusNarrow1ScaleValid && isRhombusNarrow1RotationValid) {
+                        // Implement a function to write the above
+                        writeText(correctMatchText, xTextLocation, yTextLocation);
+                    }
+                }
+            }
+        }
+
+        if(traverse == 13) {
+            // check if the shape is valid or not
+            if(rhombusNarrow2_idn>31){
+                if(shape[13].equals(shape[rhombusNarrow2_idn-19])) {
+
+                    // check if the scaling is appropriate
+                    boolean isRhombusNarrow2ScaleValid = scaleCheck(scaleRhombusNarrow2).equals("appropriate");
+
+                    // check if the rotation matches
+                    boolean isRhombusNarrow2RotationValid = rotationCheck(13, rotateRhombusNarrow2).equals("correct");
+                    System.out.println("isRhombusNarrow2ScaleValid: " + isRhombusNarrow2ScaleValid);
+                    System.out.println("isRhombusNarrow2RotationValid: " + isRhombusNarrow2RotationValid);
+                    if(isRhombusNarrow2ScaleValid && isRhombusNarrow2RotationValid) {
+                        // Implement a function to write the above
+                        writeText(correctMatchText, xTextLocation, yTextLocation);
+                    }
+                }
+            }
+        }
+
+        if(traverse == 14) {
+            // check if the shape is valid or not
+            if(triangle5_idn>27){
+                if(shape[14].equals(shape[triangle5_idn-14])) {
+
+                    // check if the scaling is appropriate
+                    boolean isTriangle5ScaleValid = scaleCheck(scaleTriangle5).equals("appropriate");
+
+                    // check if the rotation matches
+                    boolean isTriangle5RotationValid = rotationCheck(14, rotateTriangle5).equals("correct");
+                    System.out.println("isTriangle5ScaleValid: " + isTriangle5ScaleValid);
+                    System.out.println("isTriangle5RotationValid: " + isTriangle5RotationValid);
+                    if(isTriangle5ScaleValid && isTriangle5RotationValid) {
+                        // Implement a function to write the above
+                        writeText(correctMatchText, xTextLocation, yTextLocation);
+                    }
+                }
+            }
+        }
+
+        if(traverse == 15) {
+            // check if the shape is valid or not
+            if(triangle6_idn>27){
+                if(shape[15].equals(shape[triangle6_idn-13])) {
+
+                    // check if the scaling is appropriate
+                    boolean isTriangle6ScaleValid = scaleCheck(scaleTriangle6).equals("appropriate");
+
+                    // check if the rotation matches
+                    boolean isTriangle6RotationValid = rotationCheck(15, rotateTriangle6).equals("correct");
+                    System.out.println("isTriangle6ScaleValid: " + isTriangle6ScaleValid);
+                    System.out.println("isTriangle6RotationValid: " + isTriangle6RotationValid);
+                    if(isTriangle6ScaleValid && isTriangle6RotationValid) {
+                        // Implement a function to write the above
+                        writeText(correctMatchText, xTextLocation, yTextLocation);
+                    }
+                }
+            }
+        }
+
+        if(traverse == 16) {
+            // check if the shape is valid or not
+            if(rhombusNarrow3_idn>31){
+                if(shape[16].equals(shape[rhombusNarrow3_idn-16])) {
+
+                    // check if the scaling is appropriate
+                    boolean isRhombusNarrow3ScaleValid = scaleCheck(scaleRhombusNarrow3).equals("appropriate");
+
+                    // check if the rotation matches
+                    boolean isRhombusNarrow3RotationValid = rotationCheck(16, rotateRhombusNarrow3).equals("correct");
+                    System.out.println("isRhombusNarrow3ScaleValid: " + isRhombusNarrow3ScaleValid);
+                    System.out.println("isRhombusNarrow3RotationValid: " + isRhombusNarrow3RotationValid);
+                    if(isRhombusNarrow3ScaleValid && isRhombusNarrow3RotationValid) {
+                        // Implement a function to write the above
+                        writeText(correctMatchText, xTextLocation, yTextLocation);
+                    }
+                }
+            }
+        }
+
+        if(traverse == 17) {
+            // check if the shape is valid or not
+            if(triangle7_idn>27){
+                if(shape[17].equals(shape[triangle7_idn-11])) {
+
+                    // check if the scaling is appropriate
+                    boolean isTriangle7ScaleValid = scaleCheck(scaleTriangle7).equals("appropriate");
+
+                    // check if the rotation matches
+                    boolean isTriangle7RotationValid = rotationCheck(17, rotateTriangle7).equals("correct");
+                    System.out.println("isTriangle7ScaleValid: " + isTriangle7ScaleValid);
+                    System.out.println("isTriangle7RotationValid: " + isTriangle7RotationValid);
+                    if(isTriangle7ScaleValid && isTriangle7RotationValid) {
+                        // Implement a function to write the above
+                        writeText(correctMatchText, xTextLocation, yTextLocation);
+                    }
+                }
+            }
+        }
+
+        if(traverse == 18) {
+            // check if the shape is valid or not
+            if(trapezium6_idn>32){
+                if(shape[18].equals(shape[trapezium6_idn-15])) {
+
+                    // check if the scaling is appropriate
+                    boolean isTrapezium6ScaleValid = scaleCheck(scaleTrapezium6).equals("appropriate");
+
+                    // check if the rotation matches
+                    boolean isTrapezium6RotationValid = rotationCheck(18, rotateTrapezium6).equals("correct");
+                    System.out.println("isTrapezium6ScaleValid: " + isTrapezium6ScaleValid);
+                    System.out.println("isTrapezium6RotationValid: " + isTrapezium6RotationValid);
+                    if(isTrapezium6ScaleValid && isTrapezium6RotationValid) {
+                        // Implement a function to write the above
+                        writeText(correctMatchText, xTextLocation, yTextLocation);
+                    }
+                }
+            }
+        }
+
+        if(traverse == 19) {
+            // check if the shape is valid or not
+            if(hexagon1_idn>30){
+                if(shape[19].equals(shape[hexagon1_idn-12])) {
+
+                    // check if the scaling is appropriate
+                    boolean isHexagon1ScaleValid = scaleCheck(scaleHexagon1).equals("appropriate");
+
+                    // check if the rotation matches
+                    boolean isHexagon1RotationValid = rotationCheck(19, rotateHexagon1).equals("correct");
+                    System.out.println("isHexagon1ScaleValid: " + isHexagon1ScaleValid);
+                    System.out.println("isHexagon1RotationValid: " + isHexagon1RotationValid);
+                    if(isHexagon1ScaleValid && isHexagon1RotationValid) {
+                        // Implement a function to write the above
+                        writeText(correctMatchText, xTextLocation, yTextLocation);
+                    }
+                }
+            }
+        }
+
+        if(traverse == 20) {
+            // check if the shape is valid or not
+            if(trapezium7_idn>32){
+                if(shape[20].equals(shape[trapezium7_idn-13])) {
+
+                    // check if the scaling is appropriate
+                    boolean isTrapezium7ScaleValid = scaleCheck(scaleTrapezium7).equals("appropriate");
+
+                    // check if the rotation matches
+                    boolean isTrapezium7RotationValid = rotationCheck(20, rotateTrapezium7).equals("correct");
+                    System.out.println("isTrapezium7ScaleValid: " + isTrapezium7ScaleValid);
+                    System.out.println("isTrapezium7RotationValid: " + isTrapezium7RotationValid);
+                    if(isTrapezium7ScaleValid && isTrapezium7RotationValid) {
+                        // Implement a function to write the above
+                        writeText(correctMatchText, xTextLocation, yTextLocation);
+                    }
+                }
+            }
+        }
+
+        if(traverse == 21) {
+            // check if the shape is valid or not
+            if(trapezium8_idn>32){
+                if(shape[21].equals(shape[trapezium8_idn-12])) {
+
+                    // check if the scaling is appropriate
+                    boolean isTrapezium8ScaleValid = scaleCheck(scaleTrapezium8).equals("appropriate");
+
+                    // check if the rotation matches
+                    boolean isTrapezium8RotationValid = rotationCheck(21, rotateTrapezium8).equals("correct");
+                    System.out.println("isTrapezium8ScaleValid: " + isTrapezium8ScaleValid);
+                    System.out.println("isTrapezium8RotationValid: " + isTrapezium8RotationValid);
+                    if(isTrapezium8ScaleValid && isTrapezium8RotationValid) {
+                        // Implement a function to write the above
+                        writeText(correctMatchText, xTextLocation, yTextLocation);
+                    }
+                }
+            }
+        }
+
     }
 
     // checks the rotation for each of the shape if it's valid or not
@@ -3090,19 +3491,360 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
 
         String text = ""; // check if the rotation is correct or not.
         if(shape == 1) {
-            if(angle == rotateBlueprintTriangle1){
-                text = "correct";
+            System.out.println(angle);
+            if(angle < 0){
+                if((360 + angle) == rotateBlueprintTriangle1){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
             }else{
-                text = "incorrect";
+                if(angle == rotateBlueprintTriangle1){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
             }
 
         }
 
         if(shape == 2) {
-            if(angle == rotateBlueprintTrapezium1){
-                text = "correct";
+            System.out.println(angle);
+            if(angle < 0){
+                if((360 + angle) == rotateBlueprintTrapezium1){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
             }else{
-                text = "incorrect";
+                if(angle == rotateBlueprintTrapezium1){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }
+        }
+
+        if(shape == 3) {
+            System.out.println(angle);
+            if(angle < 0){
+                if((360 + angle) == rotateBlueprintTrapezium2){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }else{
+                if(angle == rotateBlueprintTrapezium2){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }
+        }
+
+        if(shape == 4) {
+            System.out.println(angle);
+            if(angle < 0){
+                if((360 + angle) == rotateBlueprintTrapezium3){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }else{
+                if(angle == rotateBlueprintTrapezium3){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }
+        }
+
+        if(shape == 5) {
+            System.out.println(angle);
+            if(angle > 0){
+                if((360 - angle) == rotateBlueprintTrapezium4){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }else{
+                if(angle == rotateBlueprintTrapezium4){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }
+        }
+
+        if(shape == 6) {
+            System.out.println(angle);
+            if(angle < 0){
+                if((360 + angle) == rotateBlueprintTrapezium5){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }else{
+                if(angle == rotateBlueprintTrapezium5){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }
+        }
+
+        if(shape == 7) {
+            System.out.println(angle);
+            if(angle < 0){
+                if((360 + angle) == rotateBlueprintRhombus1){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }else{
+                if(angle == rotateBlueprintRhombus1){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }
+        }
+
+        if(shape == 8) {
+            System.out.println(angle);
+            if(angle > 0){
+                if((angle - 360) == rotateBlueprintTriangle8){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }else{
+                if(angle == rotateBlueprintTriangle8){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }
+        }
+
+        if(shape == 9) {
+            System.out.println(angle);
+            if(angle < 0){
+                if((360 + angle) == rotateBlueprintTriangle2){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }else{
+                if(angle == rotateBlueprintTriangle2){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }
+        }
+
+        if(shape == 10) {
+            System.out.println(angle);
+            if(angle < 0){
+                if((360 + angle) == rotateBlueprintTriangle3){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }else{
+                if(angle == rotateBlueprintTriangle3){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }
+        }
+
+        if(shape == 11) {
+            System.out.println(angle);
+            if(angle < 0){
+                if((360 + angle) == rotateBlueprintTriangle4){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }else{
+                if(angle == rotateBlueprintTriangle4){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }
+        }
+
+        if(shape == 12) {
+            System.out.println(angle);
+            if(angle < 0){
+                if((360 + angle) == rotateBlueprintRhombusNarrow1){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }else{
+                if(angle == rotateBlueprintRhombusNarrow1){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }
+        }
+
+        if(shape == 13) {
+            System.out.println(angle);
+            if(angle < 0){
+                if((360 + angle) == rotateBlueprintRhombusNarrow2){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }else{
+                if(angle == rotateBlueprintRhombusNarrow2){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }
+        }
+
+        if(shape == 14) {
+            System.out.println(angle);
+            if(angle > 0){
+                if((angle - 360) == rotateBlueprintTriangle5){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }else{
+                if(angle == rotateBlueprintTriangle5){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }
+        }
+
+        if(shape == 15) {
+            System.out.println(angle);
+            if(angle > 0){
+                if((angle - 360) == rotateBlueprintTriangle6){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }else{
+                if(angle == rotateBlueprintTriangle6){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }
+        }
+
+        if(shape == 16) {
+            System.out.println(angle);
+            if(angle < 0){
+                if((360 + angle) == rotateBlueprintRhombusNarrow3){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }else{
+                if(angle == rotateBlueprintRhombusNarrow3){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }
+        }
+
+        if(shape == 17) {
+            System.out.println(angle);
+            if(angle > 0){
+                if((angle - 360) == rotateBlueprintTriangle7){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }else{
+                if(angle == rotateBlueprintTriangle7){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }
+        }
+
+        if(shape == 18) {
+            System.out.println(angle);
+            if(angle > 0){
+                if((angle - 360) == rotateBlueprintTrapezium6){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }else{
+                if(angle == rotateBlueprintTrapezium6){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }
+        }
+
+        if(shape == 19) {
+            System.out.println(angle);
+            if(angle < 0){
+                if((360 + angle) == rotateBlueprintHexagon1){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }else{
+                if(angle == rotateBlueprintHexagon1){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }
+        }
+
+        if(shape == 20) {
+            System.out.println(angle);
+            if(angle > 0){
+                if((angle - 360) == rotateBlueprintTrapezium7){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }else{
+                if(angle == rotateBlueprintTrapezium7){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }
+        }
+
+        if(shape == 21) {
+            System.out.println(angle);
+            if(angle < 0){
+                if((360 + angle) == rotateBlueprintTrapezium8){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
+            }else{
+                if(angle == rotateBlueprintTrapezium8){
+                    text = "correct";
+                }else{
+                    text = "incorrect";
+                }
             }
         }
 

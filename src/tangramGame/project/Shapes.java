@@ -18,35 +18,11 @@ public class Shapes {
 		// the use-case for normals are for light calculation
 		gl.glNormal3f(0, 0, 1);
 
-		// setting the texture for the top left corner of the square
-		if(makeTextureCoordinate == true) {
-			// sets the current texture coordinate
-			gl.glTexCoord2d(0, 1);
-		}
-
 		gl.glVertex2d(-radius, radius);
-
-		// setting the texture for the bottom left corner of the square
-		if(makeTextureCoordinate == true) {
-			// sets the current texture coordinate
-			gl.glTexCoord2d(0, 0);
-		}
 
 		gl.glVertex2d(-radius, -radius);
 
-		// set the texture for the bottom right corner of the square
-		if(makeTextureCoordinate == true) {
-			// sets the current texture coordinate
-			gl.glTexCoord2d(1, 0);
-		}
-
 		gl.glVertex2d(radius, -radius);
-
-		// set the texture for the top right corner of the square
-		if(makeTextureCoordinate == true) {
-			// sets the current texture coordinate
-			gl.glTexCoord2d(1, 1);
-		}
 
 		gl.glVertex2d(radius, radius);
 

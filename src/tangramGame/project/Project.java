@@ -59,6 +59,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
     // initialize a name ID for picking the shapes
     private int nameId = 0;
 
+    // number of matched shapes on the blueprint
     private int matchedShapes = 0;
 
     // boolean for checking if the shape is matched
@@ -107,8 +108,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
     private int trapezium7_idn = 0;
     private int trapezium8_idn = 0;
 
-    // blueprint shapes colors
-
+    // blueprint shapes borderline colors
     private float triangle1Red = 0f;
     private float triangle1Green = 0f;
     private float triangle1Blue = 0f;
@@ -326,6 +326,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
     // rotations
     private float rotateDelta = 1f;
 
+    // rotations for the shapes which are added to the blueprint
     private float rotateTriangle1 = 0f;
     private float rotateTrapezium1 = 0f;
     private float rotateTrapezium2 = 0f;
@@ -348,6 +349,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
     private float rotateTrapezium7 = 0f;
     private float rotateTrapezium8 = 0f;
 
+    // rotation values for the blueprint
     private float rotateBlueprintTriangle1 = 90f;
     private float rotateBlueprintTrapezium1 = 210f;
     private float rotateBlueprintTrapezium2 = 90f;
@@ -375,9 +377,6 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
 
     // initialize a constant value for scaling the shape in the blueprint (increase/decrease)
     private float scaleDelta = 0.1f;
-
-    // initialize a constant to rotate the shape inserted into the blueprint at an angle
-    private float rotate = 1;
 
     // initialize the colors for the trapezium
     private float trapeziumRed = 1f;
@@ -449,14 +448,14 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
     private final static int RHOMBUS_NARROW_ID = 32;
     private final static int TRAPEZIUM_ID = 33;
 
-    private final static String[] shape = {" ", "TRIANGLE_1", "TRAPEZIUM_1", "TRAPEZIUM_2", "TRAPEZIUM_3", "TRAPEZIUM_4", "TRAPEZIUM_5", "RHOMBUS_1", "TRIANGLE_8", "TRIANGLE_2", "TRIANGLE_3", "TRIANGLE_4", "RHOMBUS_NARROW_1", "RHOMBUS_NARROW_2", "TRIANGLE_5", "TRIANGLE_6", "RHOMBUS_NARROW_3", "TRIANGLE_7", "TRAPEZIUM_6", "HEXAGON_1", "TRAPEZIUM_7", "TRAPEZIUM_8",
+    private final static String[] shape = {" ", "TRIANGLE_1", "TRAPEZIUM_1", "TRAPEZIUM_2", "TRAPEZIUM_3", "TRAPEZIUM_4", "TRAPEZIUM_5", "RHOMBUS_1", "TRIANGLE_8", "TRIANGLE_2", "TRIANGLE_3", "TRIANGLE_4", "RHOMBUS_NARROW_1", "RHOMBUS_NARROW_2", "TRIANGLE_5", "TRIANGLE_6", "RHOMBUS_NARROW_3", "TRIANGLE_7", "TRAPEZIUM_6", "HEXAGON_1", "TRAPEZIUM_7", "TRAPEZIUM_8", // shapes on the blueprint
             "TRIANGLE", "RHOMBUS", "SQUARE", "HEXAGON", "RHOMBUS_NARROW", "TRAPEZIUM"}; // shapes on the palette.
 
     // total number of shapes (n+1) - because we start looping from 1
     private final static int TOTAL_NUM_OF_SHAPES = 22;
 
     // size of buffer to store in memory, information about the selected object (shape)
-    private static final int BUFSIZE = 512;
+    private static final int BUFFSIZE = 512;
     private IntBuffer selectBuffer;
 
     // used in selecting the object we want to draw on the blueprint,
@@ -946,8 +945,8 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         GL2 gl = drawable.getGL().getGL2();
 
         // determine which primitive are draw into some region of the window
-        selectBuffer = BufferUtil.newIntBuffer(BUFSIZE);
-        gl.glSelectBuffer(BUFSIZE, selectBuffer);
+        selectBuffer = BufferUtil.newIntBuffer(BUFFSIZE);
+        gl.glSelectBuffer(BUFFSIZE, selectBuffer);
         gl.glRenderMode(GL2.GL_SELECT); // switches to selection mode
         gl.glInitNames(); // makes an empty name stack
         gl.glMatrixMode(GL2.GL_MODELVIEW); // restore model view
@@ -1330,7 +1329,6 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         drawBlueprintTrapezium7(drawable);
         drawBlueprintTrapezium8(drawable);
 
-        // TODO: add shapes to the blueprint line 875 test project
         // get the shape that was selected by the user from the palette
         // and draw it on the blueprint
         addTriangle1Shape(drawable, triangle1_idn);
@@ -1749,13 +1747,13 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         GL2 gl = drawable.getGL().getGL2();
 
         gl.glPushMatrix();
-        gl.glColor3f(triangle1Red, triangle1Green, triangle1Blue); // add the color
+        gl.glColor3f(triangle1Red, triangle1Green, triangle1Blue);
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(triangle1X, triangle1Y, triangle1Z);
         gl.glRotatef(rotateBlueprintTriangle1, 0, 0, 1);
         gl.glTranslatef(-triangle1X, -triangle1Y, -triangle1Z);
-        Shapes.triangle(gl, 0.5, false); // add the square
+        Shapes.triangle(gl, 0.5, false);
         gl.glPopMatrix();
     }
 
@@ -1763,7 +1761,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         GL2 gl = drawable.getGL().getGL2();
 
         gl.glPushMatrix();
-        gl.glColor3f(trapezium1Red, trapezium1Green, trapezium1Blue); // add the color
+        gl.glColor3f(trapezium1Red, trapezium1Green, trapezium1Blue);
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(trapezium1X, trapezium1Y, trapezium1Z);
@@ -1777,7 +1775,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         GL2 gl = drawable.getGL().getGL2();
 
         gl.glPushMatrix();
-        gl.glColor3f(trapezium2Red, trapezium2Green, trapezium2Blue); // add the color
+        gl.glColor3f(trapezium2Red, trapezium2Green, trapezium2Blue);
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(trapezium2X, trapezium2Y, trapezium2Z);
@@ -1791,7 +1789,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         GL2 gl = drawable.getGL().getGL2();
 
         gl.glPushMatrix();
-        gl.glColor3f(trapezium3Red, trapezium3Green, trapezium3Blue); // add the color
+        gl.glColor3f(trapezium3Red, trapezium3Green, trapezium3Blue);
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(trapezium3X, trapezium3Y, trapezium3Z);
@@ -1805,7 +1803,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         GL2 gl = drawable.getGL().getGL2();
 
         gl.glPushMatrix();
-        gl.glColor3f(trapezium4Red, trapezium4Green, trapezium4Blue); // add the color
+        gl.glColor3f(trapezium4Red, trapezium4Green, trapezium4Blue);
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(trapezium4X, trapezium4Y, trapezium4Z);
@@ -1819,7 +1817,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         GL2 gl = drawable.getGL().getGL2();
 
         gl.glPushMatrix();
-        gl.glColor3f(trapezium5Red, trapezium5Green, trapezium5Blue); // add the color
+        gl.glColor3f(trapezium5Red, trapezium5Green, trapezium5Blue);
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(trapezium5X, trapezium5Y, trapezium5Z);
@@ -1833,7 +1831,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         GL2 gl = drawable.getGL().getGL2();
 
         gl.glPushMatrix();
-        gl.glColor3f(rhombus1Red, rhombus1Green, rhombus1Blue); // add the color
+        gl.glColor3f(rhombus1Red, rhombus1Green, rhombus1Blue);
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(rhombus1X, rhombus1Y, rhombus1Z);
@@ -1847,13 +1845,13 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         GL2 gl = drawable.getGL().getGL2();
 
         gl.glPushMatrix();
-        gl.glColor3f(triangle8Red, triangle8Green, triangle8Blue); // add the color
+        gl.glColor3f(triangle8Red, triangle8Green, triangle8Blue);
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(triangle8X, triangle8Y, triangle8Z);
         gl.glRotatef(rotateBlueprintTriangle8, 0, 0, 1);
         gl.glTranslatef(-triangle8X, -triangle8Y, -triangle8Z);
-        Shapes.triangle(gl, 0.5, false); // add the square
+        Shapes.triangle(gl, 0.5, false);
         gl.glPopMatrix();
     }
 
@@ -1862,13 +1860,13 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         GL2 gl = drawable.getGL().getGL2();
 
         gl.glPushMatrix();
-        gl.glColor3f(triangle2Red, triangle2Green, triangle2Blue); // add the color
+        gl.glColor3f(triangle2Red, triangle2Green, triangle2Blue);
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(triangle2X, triangle2Y, triangle2Z);
         gl.glRotatef(rotateBlueprintTriangle2, 0, 0, 1);
         gl.glTranslatef(-triangle2X, -triangle2Y, -triangle2Z);
-        Shapes.triangle(gl, 0.5, false); // add the square
+        Shapes.triangle(gl, 0.5, false);
         gl.glPopMatrix();
     }
 
@@ -1876,13 +1874,13 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         GL2 gl = drawable.getGL().getGL2();
 
         gl.glPushMatrix();
-        gl.glColor3f(triangle3Red, triangle3Green, triangle3Blue); // add the color
+        gl.glColor3f(triangle3Red, triangle3Green, triangle3Blue);
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(triangle3X, triangle3Y, triangle3Z);
         gl.glRotatef(rotateBlueprintTriangle3, 0, 0, 1);
         gl.glTranslatef(-triangle3X, -triangle3Y, -triangle3Z);
-        Shapes.triangle(gl, 0.5, false); // add the square
+        Shapes.triangle(gl, 0.5, false);
         gl.glPopMatrix();
     }
 
@@ -1890,13 +1888,13 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         GL2 gl = drawable.getGL().getGL2();
 
         gl.glPushMatrix();
-        gl.glColor3f(triangle4Red, triangle4Green, triangle4Blue); // add the color
+        gl.glColor3f(triangle4Red, triangle4Green, triangle4Blue);
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(triangle4X, triangle4Y, triangle4Z);
         gl.glRotatef(rotateBlueprintTriangle4, 0, 0, 1);
         gl.glTranslatef(-triangle4X, -triangle4Y, -triangle4Z);
-        Shapes.triangle(gl, 0.5, false); // add the square
+        Shapes.triangle(gl, 0.5, false);
         gl.glPopMatrix();
     }
 
@@ -1904,13 +1902,13 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         GL2 gl = drawable.getGL().getGL2();
 
         gl.glPushMatrix();
-        gl.glColor3f(rhombusNarrow1Red, rhombusNarrow1Green, rhombusNarrow1Blue); // add the color
+        gl.glColor3f(rhombusNarrow1Red, rhombusNarrow1Green, rhombusNarrow1Blue);
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(rhombusNarrow1X, rhombusNarrow1Y, rhombusNarrow1Z);
         gl.glRotatef(rotateBlueprintRhombusNarrow1, 0, 0, 1);
         gl.glTranslatef(-rhombusNarrow1X, -rhombusNarrow1Y, -rhombusNarrow1Z);
-        Shapes.rhombusNarrow(gl, 0.6, false); // add the square
+        Shapes.rhombusNarrow(gl, 0.6, false);
         gl.glPopMatrix();
     }
 
@@ -1918,13 +1916,13 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         GL2 gl = drawable.getGL().getGL2();
 
         gl.glPushMatrix();
-        gl.glColor3f(rhombusNarrow2Red, rhombusNarrow2Green, rhombusNarrow2Blue); // add the color
+        gl.glColor3f(rhombusNarrow2Red, rhombusNarrow2Green, rhombusNarrow2Blue);
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(rhombusNarrow2X, rhombusNarrow2Y, rhombusNarrow2Z);
         gl.glRotatef(rotateBlueprintRhombusNarrow2, 0, 0, 1);
         gl.glTranslatef(-rhombusNarrow2X, -rhombusNarrow2Y, -rhombusNarrow2Z);
-        Shapes.rhombusNarrow(gl, 0.6, false); // add the square
+        Shapes.rhombusNarrow(gl, 0.6, false);
         gl.glPopMatrix();
     }
 
@@ -1932,13 +1930,13 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         GL2 gl = drawable.getGL().getGL2();
 
         gl.glPushMatrix();
-        gl.glColor3f(triangle5Red, triangle5Green, triangle5Blue); // add the color
+        gl.glColor3f(triangle5Red, triangle5Green, triangle5Blue);
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(triangle5X, triangle5Y, triangle5Z);
         gl.glRotatef(rotateBlueprintTriangle5, 0, 0, 1);
         gl.glTranslatef(-triangle5X, -triangle5Y, -triangle5Z);
-        Shapes.triangle(gl, 0.5, false); // add the square
+        Shapes.triangle(gl, 0.5, false);
         gl.glPopMatrix();
     }
 
@@ -1946,13 +1944,13 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         GL2 gl = drawable.getGL().getGL2();
 
         gl.glPushMatrix();
-        gl.glColor3f(triangle6Red, triangle6Green, triangle6Blue); // add the color
+        gl.glColor3f(triangle6Red, triangle6Green, triangle6Blue);
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(triangle6X, triangle6Y, triangle6Z);
         gl.glRotatef(rotateBlueprintTriangle6, 0, 0, 1);
         gl.glTranslatef(-triangle6X, -triangle6Y, -triangle6Z);
-        Shapes.triangle(gl, 0.5, false); // add the square
+        Shapes.triangle(gl, 0.5, false);
         gl.glPopMatrix();
     }
 
@@ -1960,13 +1958,13 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         GL2 gl = drawable.getGL().getGL2();
 
         gl.glPushMatrix();
-        gl.glColor3f(rhombusNarrow3Red, rhombusNarrow3Green, rhombusNarrow3Blue); // add the color
+        gl.glColor3f(rhombusNarrow3Red, rhombusNarrow3Green, rhombusNarrow3Blue);
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(rhombusNarrow3X, rhombusNarrow3Y, rhombusNarrow3Z);
         gl.glRotatef(rotateBlueprintRhombusNarrow3, 0, 0, 1);
         gl.glTranslatef(-rhombusNarrow3X, -rhombusNarrow3Y, -rhombusNarrow3Z);
-        Shapes.rhombusNarrow(gl, 0.6, false); // add the square
+        Shapes.rhombusNarrow(gl, 0.6, false);
         gl.glPopMatrix();
     }
 
@@ -1974,13 +1972,13 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         GL2 gl = drawable.getGL().getGL2();
 
         gl.glPushMatrix();
-        gl.glColor3f(triangle7Red, triangle7Green, triangle7Blue); // add the color
+        gl.glColor3f(triangle7Red, triangle7Green, triangle7Blue);
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(triangle7X, triangle7Y, triangle7Z);
         gl.glRotatef(rotateBlueprintTriangle7, 0, 0, 1);
         gl.glTranslatef(-triangle7X, -triangle7Y, -triangle7Z);
-        Shapes.triangle(gl, 0.5, false); // add the square
+        Shapes.triangle(gl, 0.5, false);
         gl.glPopMatrix();
     }
 
@@ -1988,7 +1986,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         GL2 gl = drawable.getGL().getGL2();
 
         gl.glPushMatrix();
-        gl.glColor3f(trapezium6Red, trapezium6Green, trapezium6Blue); // add the color
+        gl.glColor3f(trapezium6Red, trapezium6Green, trapezium6Blue);
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(trapezium6X, trapezium6Y, trapezium6Z);
@@ -2002,7 +2000,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         GL2 gl = drawable.getGL().getGL2();
 
         gl.glPushMatrix();
-        gl.glColor3f(hexagon1Red, hexagon1Green, hexagon1Blue); // add the color
+        gl.glColor3f(hexagon1Red, hexagon1Green, hexagon1Blue);
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(hexagon1X, hexagon1Y, hexagon1Z);
@@ -2016,7 +2014,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         GL2 gl = drawable.getGL().getGL2();
 
         gl.glPushMatrix();
-        gl.glColor3f(trapezium7Red, trapezium7Green, trapezium7Blue); // add the color
+        gl.glColor3f(trapezium7Red, trapezium7Green, trapezium7Blue);
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(trapezium7X, trapezium7Y, trapezium7Z);
@@ -2030,7 +2028,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         GL2 gl = drawable.getGL().getGL2();
 
         gl.glPushMatrix();
-        gl.glColor3f(trapezium8Red, trapezium8Green, trapezium8Blue); // add the color
+        gl.glColor3f(trapezium8Red, trapezium8Green, trapezium8Blue);
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
         gl.glLineWidth(2);
         gl.glTranslatef(trapezium8X, trapezium8Y, trapezium8Z);
@@ -2043,7 +2041,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
     private void palette(GLAutoDrawable drawable) {
         GL2 gl = drawable.getGL().getGL2();
 
-        // Apply a subsequent matrix operation to the modelview matrix stack
+        // Apply a subsequent matrix operation to the ModelView matrix stack
 
         gl.glMatrixMode(GL2.GL_MODELVIEW); // converts local coordinates into world space
         gl.glLoadIdentity(); // reset the value
@@ -2062,7 +2060,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         // used in 2d-games, objects close or far appear the same
         gl.glOrtho((float) -10 / 2, // left vertical clipping plane
                 (float) 10 / 2, // right vertical clipping plane
-                (-10 * aspectP) / 2, // buttom horizontal clipping plane
+                (-10 * aspectP) / 2, // bottom horizontal clipping plane
                 (10 * aspectP) / 2, // top horizontal clipping plane
                 1, // near depth clipping plane
                 11); // farther clipping plane
@@ -2176,17 +2174,6 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
         GL2 gl = drawable.getGL().getGL2(); // get the opengl graphic context
         gl.glPushMatrix(); // push the current matrix down the stack
 
-        // enable the server-side GL capabilities for texture
-		/*gl.glEnable(GL2.GL_TEXTURE_2D);
-
-		// setting textures
-		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_NEAREST);
-		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MIN_FILTER, GL2.GL_NEAREST);
-		gl.glGenerateMipmap(GL2.GL_TEXTURE_2D);
-
-		// specify which texture to use for the palette (background)
-		textures[2].bind(gl);*/
-
         gl.glTranslated(-1.5f, -1f, -10f); // (x,y,z)
         gl.glScalef(3.5f, 5, 0);
         gl.glColor3f(0.28f, 0.82f, 0.8f);
@@ -2254,38 +2241,13 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
 
         glu = GLU.createGLU(gl); // get GL utilities
 
-        // iterate through the texture files added
-		/*for(int i=0; i < textureFileNames.length; i++) {
-			try {
-
-				// grab the path for all the textures (a.k.a -> images)
-				URL textureURL;
-				textureURL = getClass().getClassLoader().getResource("textures/"+textureFileNames[i]);
-
-				if(textureURL != null) {
-					// load the file and applying different texture properties to the image
-					BufferedImage img = ImageIO.read(textureURL);
-					ImageUtil.flipImageVertically(img);
-					textures[i] = AWTTextureIO.newTexture(GLProfile.getDefault(), img, true);
-					textures[i].setTexParameteri(gl, GL2.GL_TEXTURE_WRAP_S, GL2.GL_REPEAT);
-					textures[i].setTexParameteri(gl, GL2.GL_TEXTURE_WRAP_T, GL2.GL_REPEAT);
-				}
-
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		// enable the first texture
-		textures[0].enable(gl);*/
-
         // initialize the font to use for rendering our text
         textRenderer = new TextRenderer(new Font("SansSerif", Font.PLAIN, 12));
         textMatch = new TextRenderer(new Font("SansSerif", Font.BOLD, 20));
     }
 
     // It’s called by the object of the GLAutoDrawable interface during the first repaint
-    // after the component has been resized.  It’s called whenever the position
+    // after the component has been resized. It’s called whenever the position
     // of the component on the window is changed.
     @Override
     public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
@@ -2335,7 +2297,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
                 break;
             }
 			/*
-			 * right click on the mouse
+			 * right-click on the mouse
 			case MouseEvent.BUTTON3: {
 
 			}*/
@@ -2949,87 +2911,87 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
             case KeyEvent.VK_S:
 
                 if(traverse == 1) {
-                    if(scaleTriangle1 <= 1.5) { // prevent the shape from getting too small
+                    if(scaleTriangle1 <= 1.5) { // prevent the shape from getting too big
                         scaleTriangle1 += scaleDelta;
                     }
                 }else if (traverse == 2) {
-                    if(scaleTrapezium1 <= 1.5) { // prevent the shape from getting too small
+                    if(scaleTrapezium1 <= 1.5) { // prevent the shape from getting too big
                         scaleTrapezium1 += scaleDelta;
                     }
                 }else if (traverse == 3) {
-                    if(scaleTrapezium2 <= 1.5) {  // prevent the shape from getting too small
+                    if(scaleTrapezium2 <= 1.5) {  // prevent the shape from getting too big
                         scaleTrapezium2 += scaleDelta;
                     }
                 }else if (traverse == 4) {
-                    if(scaleTrapezium3 <= 1.5) {  // prevent the shape from getting too small
+                    if(scaleTrapezium3 <= 1.5) {  // prevent the shape from getting too big
                         scaleTrapezium3 += scaleDelta;
                     }
                 }else if (traverse == 5) {
-                    if(scaleTrapezium4 <= 1.5) {  // prevent the shape from getting too small
+                    if(scaleTrapezium4 <= 1.5) {  // prevent the shape from getting too big
                         scaleTrapezium4 += scaleDelta;
                     }
                 }else if (traverse == 6) {
-                    if(scaleTrapezium5 <= 1.5) {  // prevent the shape from getting too small
+                    if(scaleTrapezium5 <= 1.5) {  // prevent the shape from getting too big
                         scaleTrapezium5 += scaleDelta;
                     }
                 }else if (traverse == 7) {
-                    if(scaleRhombus1 <= 1.5) {  // prevent the shape from getting too small
+                    if(scaleRhombus1 <= 1.5) {  // prevent the shape from getting too big
                         scaleRhombus1 += scaleDelta;
                     }
                 }else if (traverse == 8) {
-                    if(scaleTriangle8 <= 1.5) {  // prevent the shape from getting too small
+                    if(scaleTriangle8 <= 1.5) {  // prevent the shape from getting too big
                         scaleTriangle8 += scaleDelta;
                     }
                 }else if (traverse == 9) {
-                    if(scaleTriangle2 <= 1.5) {  // prevent the shape from getting too small
+                    if(scaleTriangle2 <= 1.5) {  // prevent the shape from getting too big
                         scaleTriangle2 += scaleDelta;
                     }
                 }else if (traverse == 10) {
-                    if(scaleTriangle3 <= 1.5) {  // prevent the shape from getting too small
+                    if(scaleTriangle3 <= 1.5) {  // prevent the shape from getting too big
                         scaleTriangle3 += scaleDelta;
                     }
                 }else if (traverse == 11) {
-                    if(scaleTriangle4 <= 1.5) {  // prevent the shape from getting too small
+                    if(scaleTriangle4 <= 1.5) {  // prevent the shape from getting too big
                         scaleTriangle4 += scaleDelta;
                     }
                 }else if (traverse == 12) {
-                    if(scaleRhombusNarrow1 <= 1.5) {  // prevent the shape from getting too small
+                    if(scaleRhombusNarrow1 <= 1.5) {  // prevent the shape from getting too big
                         scaleRhombusNarrow1 += scaleDelta;
                     }
                 }else if (traverse == 13) {
-                    if(scaleRhombusNarrow2 <= 1.5) {  // prevent the shape from getting too small
+                    if(scaleRhombusNarrow2 <= 1.5) {  // prevent the shape from getting too big
                         scaleRhombusNarrow2 += scaleDelta;
                     }
                 }else if (traverse == 14) {
-                    if(scaleTriangle5 <= 1.5) {  // prevent the shape from getting too small
+                    if(scaleTriangle5 <= 1.5) {  // prevent the shape from getting too big
                         scaleTriangle5 += scaleDelta;
                     }
                 }else if (traverse == 15) {
-                    if(scaleTriangle6 <= 1.5) {  // prevent the shape from getting too small
+                    if(scaleTriangle6 <= 1.5) {  // prevent the shape from getting too big
                         scaleTriangle6 += scaleDelta;
                     }
                 }else if (traverse == 16) {
-                    if(scaleRhombusNarrow3 <= 1.5) {  // prevent the shape from getting too small
+                    if(scaleRhombusNarrow3 <= 1.5) {  // prevent the shape from getting too big
                         scaleRhombusNarrow3 += scaleDelta;
                     }
                 }else if (traverse == 17) {
-                    if(scaleTriangle7 <= 1.5) {  // prevent the shape from getting too small
+                    if(scaleTriangle7 <= 1.5) {  // prevent the shape from getting too big
                         scaleTriangle7 += scaleDelta;
                     }
                 }else if (traverse == 18) {
-                    if(scaleTrapezium6 <= 1.5) {  // prevent the shape from getting too small
+                    if(scaleTrapezium6 <= 1.5) {  // prevent the shape from getting too big
                         scaleTrapezium6 += scaleDelta;
                     }
                 }else if (traverse == 19) {
-                    if(scaleHexagon1 <= 1.5) {  // prevent the shape from getting too small
+                    if(scaleHexagon1 <= 1.5) {  // prevent the shape from getting too big
                         scaleHexagon1 += scaleDelta;
                     }
                 }else if (traverse == 20) {
-                    if(scaleTrapezium7 <= 1.5) {  // prevent the shape from getting too small
+                    if(scaleTrapezium7 <= 1.5) {  // prevent the shape from getting too big
                         scaleTrapezium7 += scaleDelta;
                     }
                 }else if (traverse == 21) {
-                    if(scaleTrapezium8 <= 1.5) {  // prevent the shape from getting too small
+                    if(scaleTrapezium8 <= 1.5) {  // prevent the shape from getting too big
                         scaleTrapezium8 += scaleDelta;
                     }
                 }
@@ -3136,7 +3098,7 @@ public class Project extends GLCanvas implements GLEventListener, KeyListener, M
 
             // once the user clicks on the escape key, we can stop the animator and close the game window
             case KeyEvent.VK_ESCAPE:
-                System.out.println("Animator stopped!!\nWindow closed");
+                System.out.println("Animator stopped!\nWindow closed.");
                 animator.stop();
                 System.exit(0);
                 break;
